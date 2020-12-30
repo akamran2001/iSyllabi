@@ -5,10 +5,7 @@ function LoginScreen(props) {
     return (
         <SafeAreaView style={styles.container}>
             <View>
-                <Button
-                    title = "Main"
-                    onPress = {() => props.navigation.navigate("Drawer")}
-                />
+                <Text>Login Screen</Text>
             </View>
         </SafeAreaView>
     );

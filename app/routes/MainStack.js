@@ -1,21 +1,23 @@
+import React from 'react';
 import { createStackNavigator } from "react-navigation-stack";
-import { createAppContainer } from "react-navigation";
-
 import MainScreen from "../screens/MainScreen";
 import AssignmentDetailScreen from "../screens/AssignmentDetailScreen";
+import Header from "../shared/header"
 
 const screens = {
     MainScreen : {
         screen : MainScreen,
-        navigationOptions: {
-            headerShown: false
-          },
+        navigationOptions: ({ navigation }) => {
+            return {
+              headerTitle: () => <Header title='Tasks' navigation={navigation} />
+            }
+        },
     },
     AssignmentDetailScreen : {
         screen : AssignmentDetailScreen,
         navigationOptions: {
-            title: null
-        },
+            title: "Details"
+        }
     }
 }
 
