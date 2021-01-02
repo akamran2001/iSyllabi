@@ -3,6 +3,7 @@ import { createAppContainer } from "react-navigation";
 
 import SettingsStack from './SettingsStack'
 import MainStack from "./MainStack"
+import CreateTaskStack from "./CreateTaskStack";
 
 const DrawerNavigator = createDrawerNavigator({
     MainStack : {
@@ -11,12 +12,18 @@ const DrawerNavigator = createDrawerNavigator({
             title: "Tasks"
         }
     },
+    CreateTaskStack : {
+        screen : CreateTaskStack,
+        navigationOptions: {
+            title: "Create Task"
+        }
+    },
     SettingsStack : {
         screen: SettingsStack,
         navigationOptions:{
             title: "Settings"
         }
     },
-})
+});
 
 export default createAppContainer(DrawerNavigator)
