@@ -1,12 +1,12 @@
 import React from "react";
 import {StyleSheet,Text,View,SafeAreaView,StatusBar} from 'react-native'
+import CreateTaskForm from "../shared/CreateTaskForm"
 
 function CreateTaskScreen (props) {
     return(
         <SafeAreaView style = {styles.container}>
             <View>
-                <Text> CreateTask </Text>
-                <StatusBar style = "auto"/>
+                <CreateTaskForm/>
             </View>
         </SafeAreaView>
     );
@@ -17,8 +17,8 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#FFFFFF',
         color:'#000000',
-        alignItems: 'center',
-        justifyContent: 'center',
+        flexDirection: "column",
+        alignContent: "center"
     }
 });
 
