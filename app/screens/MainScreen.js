@@ -28,7 +28,6 @@ function MainScreen (props){
   }
   const editTask = (task) => {
     setTasks((currentTasks)=>{
-      console.log(currentTasks)
       for (i=0; i<currentTasks.length;i++){
         if(currentTasks[i].key === task.key){
           currentTasks[i] = task

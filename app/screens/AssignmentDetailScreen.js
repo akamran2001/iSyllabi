@@ -6,7 +6,7 @@ function AssignmentDetailScreen({navigation}){
       <SafeAreaView style={styles.container}>
           <View style = {styles.class}>
           <Text style = {styles.text}>
-            {navigation.getParam('class')}
+            {navigation.getParam('class').trim()}
           </Text>
         </View>
         <View style={styles.description}>
@@ -15,9 +15,9 @@ function AssignmentDetailScreen({navigation}){
                   style = {{
                       textDecorationLine: 'underline'
                   }}
-              >{navigation.getParam('type')} {"\n \n"}
+              >{navigation.getParam('type').trim()}
             </Text>
-            {navigation.getParam('details')}
+            {"\n \n"}{navigation.getParam('details').trim()}
           </Text>
         </View>
 
