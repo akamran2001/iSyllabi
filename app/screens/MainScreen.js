@@ -9,8 +9,10 @@ import CreateTaskForm from '../shared/CreateTaskForm'
 import EditTaskForm from '../shared/EditTaskForm'
 
 function MainScreen (props){
+  //Modal states
   const [modalOpen, setModalOpen] = useState(false);
   const [editOpen, setEditOpen] = useState(false);
+  ///*** Start Mock Database setup ***///
   const [task, setTasks] = useState(mockData)
   const addTask = (task) => {
     task.key = Math.random().toString();
@@ -36,6 +38,7 @@ function MainScreen (props){
     });
     setEditOpen(false);
   }
+  ///*** End Mock Database setup ***///
   return(
     <SafeAreaView style={styles.container}>
     <Modal visible={modalOpen} animationType='slide'>
