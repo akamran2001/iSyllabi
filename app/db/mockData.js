@@ -78,5 +78,4 @@ const mockData = [
         priority:"medium"
     }
 ]
-
-export default mockData;
+export default mockData

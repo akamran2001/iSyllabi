@@ -3,7 +3,7 @@ import { StyleSheet, Button, TextInput, View, Text} from 'react-native';;
 import { Formik } from 'formik';
 import {Picker} from '@react-native-picker/picker';
 
-export default function ReviewForm() {
+export default function CreateTaskForm({addTask}){
   return (
     <View style={styles.container}>
       <Formik
@@ -14,8 +14,9 @@ export default function ReviewForm() {
             due_date: '',
             priority: '' 
         }}
-        onSubmit={(values) => {
-          console.log(values);
+        onSubmit={(values,actions) => {
+          actions.resetForm();
+          addTask(values)
         }}
       >
         {props => (

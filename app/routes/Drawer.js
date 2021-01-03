@@ -12,12 +12,12 @@ const DrawerNavigator = createDrawerNavigator({
             title: "Tasks"
         }
     },
-    CreateTaskStack : {
-        screen : CreateTaskStack,
-        navigationOptions: {
-            title: "Create Task"
-        }
-    },
+    // CreateTaskStack : {
+    //     screen : CreateTaskStack,
+    //     navigationOptions: {
+    //         title: "Create Task"
+    //     }
+    // },
     SettingsStack : {
         screen: SettingsStack,
         navigationOptions:{
