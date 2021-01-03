@@ -38,6 +38,18 @@ function MainScreen (props){
     });
     setEditOpen(false);
   }
+  const [prevValues,setPrevValues] = useState({
+    key: 0,
+    class: '', 
+    details: '', 
+    type: '',
+    due_date: '',
+    priority: '' 
+  })
+  const onEdit = (item) =>{
+    setPrevValues(item)
+    setEditOpen(true)
+  }
   ///*** End Mock Database setup ***///
   return(
     <SafeAreaView style={styles.container}>
@@ -59,21 +71,19 @@ function MainScreen (props){
       color = "black"
       onPress={() => setModalOpen(true)} 
     />
+      <Modal visible={editOpen} animationType='slide'>
+        <View style={styles.modalContent}>
+          <MaterialIcons 
+            name='close'
+            size={24} 
+            style={{...styles.modalToggle, ...styles.modalClose}} 
+            onPress={() => setEditOpen(false)} 
+          />
+          <EditTaskForm editTask = {editTask} prevValues = {prevValues}/>
+        </View>
+      </Modal>
       <FlatList data = {task} renderItem = {({item})=>
         (<View style={itemStyle(item)}>
-
-          <Modal visible={editOpen} animationType='slide'>
-            <View style={styles.modalContent}>
-              <MaterialIcons 
-                name='close'
-                size={24} 
-                style={{...styles.modalToggle, ...styles.modalClose}} 
-                onPress={() => setEditOpen(false)} 
-              />
-              <EditTaskForm editTask = {editTask} prevValues = {item}/>
-            </View>
-          </Modal>
-
           <TouchableOpacity onPress = {()=>props.navigation.navigate('AssignmentDetailScreen',item)}>
             <MaterialIcons 
               name='edit' 
@@ -83,7 +93,7 @@ function MainScreen (props){
                 flexDirection: "row",
                 textAlign: "right"
               }}
-              onPress={() => setEditOpen(true)} 
+              onPress={() => onEdit(item)} 
             />
             <Text style={styles.title}>
               {item.type.trim()} for {item.class.trim()} due on {item.due_date}
