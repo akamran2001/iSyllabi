@@ -1,6 +1,6 @@
 
 import React, {useState} from 'react';
-import { StyleSheet, Text, View, SafeAreaView, Button, StatusBar, FlatList, TouchableOpacity, Modal} from 'react-native';
+import { StyleSheet, Text, View, SafeAreaView, FlatList, TouchableOpacity, Modal} from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons'; 
 import mockData from '../db/mockData';
@@ -51,7 +51,7 @@ function MainScreen (props){
   }
   ///*** End Mock Database setup ***///
   return(
-    <SafeAreaView style={styles.container}>
+  <SafeAreaView style={styles.container}>
     <Modal visible={modalOpen} animationType='slide'>
       <View style={styles.modalContent}>
         <MaterialIcons 
@@ -70,49 +70,48 @@ function MainScreen (props){
       color = "black"
       onPress={() => setModalOpen(true)} 
     />
-      <Modal visible={editOpen} animationType='slide'>
-        <View style={styles.modalContent}>
+    <Modal visible={editOpen} animationType='slide'>
+      <View style={styles.modalContent}>
+        <MaterialIcons 
+          name='close'
+          size={24} 
+          style={{...styles.modalToggle, ...styles.modalClose}} 
+          onPress={() => setEditOpen(false)} 
+        />
+        <EditTaskForm editTask = {editTask} prevValues = {prevValues}/>
+      </View>
+    </Modal>
+    <FlatList data = {task} renderItem = {({item})=>
+      (<View style={itemStyle(item)}>
+        <TouchableOpacity onPress = {()=>props.navigation.navigate('AssignmentDetailScreen',item)}>
           <MaterialIcons 
-            name='close'
-            size={24} 
-            style={{...styles.modalToggle, ...styles.modalClose}} 
-            onPress={() => setEditOpen(false)} 
+            name='edit' 
+            size={24}
+            style = {{
+              flex: 1,
+              flexDirection: "row",
+              textAlign: "right"
+            }}
+            onPress={() => onEdit(item)} 
           />
-          <EditTaskForm editTask = {editTask} prevValues = {prevValues}/>
-        </View>
-      </Modal>
-      <FlatList data = {task} renderItem = {({item})=>
-        (<View style={itemStyle(item)}>
-          <TouchableOpacity onPress = {()=>props.navigation.navigate('AssignmentDetailScreen',item)}>
-            <MaterialIcons 
-              name='edit' 
-              size={24}
-              style = {{
-                flex: 1,
-                flexDirection: "row",
-                textAlign: "right"
-              }}
-              onPress={() => onEdit(item)} 
-            />
-            <Text style={styles.title}>
-              {item.type.trim()} for {item.class.trim()} due on {item.due_date}
-            </Text>
-            <MaterialIcons 
-              name='delete' 
-              size={24}
-              style = {{
-                flex: 1,
-                flexDirection: "row",
-                textAlign: "right"
-              }}
-              onPress={() => deleteTask(item.key)} 
-            />
-          </TouchableOpacity>
-        </View>)}
-      />
-    </SafeAreaView>
-  )
-}
+          <Text style={styles.title}>
+            {item.type.trim()} for {item.class.trim()} due on {item.due_date}
+          </Text>
+          <MaterialIcons 
+            name='delete' 
+            size={24}
+            style = {{
+              flex: 1,
+              flexDirection: "row",
+              textAlign: "right"
+            }}
+            onPress={() => deleteTask(item.key)} 
+          />
+        </TouchableOpacity>
+      </View>)}
+    />
+  </SafeAreaView>
+)}
 
 const bgcolors = {
   "low" : "#5cb85c",
