@@ -47,18 +47,19 @@ export default function CreateTaskForm({addTask}){
               value={props.values.due_date}
               keyboardType='numbers-and-punctuation'
             />
-            <Text style = {{
+            {/* <Text style = {{
                 padding: 10,
                 fontSize: 18,
                 color: 'gray',
                 paddingLeft: 0,
-            }}> Priority </Text>
+            }}> Priority </Text> */}
             <Picker
                 selectedValue = {props.values.priority}
                 style={styles.input}
                 mode='dropdown'
                 onValueChange={props.handleChange('priority')}
             >
+                <Picker.Item label = "Priority (Low, Medium or High)" value = {null} /> 
                 <Picker.Item label="Low" value="low" />
                 <Picker.Item label="Medium" value="medium" />
                 <Picker.Item label="High" value="high" />
