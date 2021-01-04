@@ -4,7 +4,6 @@ import { StyleSheet, Text, View, SafeAreaView, FlatList, TouchableOpacity, Modal
 import { MaterialIcons } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons'; 
 import mockData from '../db/mockData';
-import DB from '../db/DB';
 import CreateTaskForm from '../shared/CreateTaskForm'
 import EditTaskForm from '../shared/EditTaskForm'
 
