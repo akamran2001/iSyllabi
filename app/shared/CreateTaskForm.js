@@ -8,11 +8,6 @@ export default function CreateTaskForm({addTask, courseList}){
   const [date, setDate] = useState(new Date());
   const [mode, setMode] = useState('date');
   const [show, setShow] = useState(false);
-  // const onChange = (event, selectedDate) => {
-  //   const currentDate = selectedDate || date;
-  //   setShow(Platform.OS === 'ios');
-  //   setDate(currentDate);
-  // };
 
   const showMode = (currentMode) => {
     setShow(true);
