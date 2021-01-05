@@ -1,9 +1,33 @@
-import React from 'react';
-import { StyleSheet, Button, TextInput, View} from 'react-native';;
-import { Formik } from 'formik';
+import React, {useState} from 'react';
+import { StyleSheet, Button, TextInput, View, Text, TouchableOpacity} from 'react-native';;
+import { Field, Formik } from 'formik';
 import {Picker} from '@react-native-picker/picker';
+import DateTimePicker from '@react-native-community/datetimepicker';
 
 export default function CreateTaskForm({addTask, courseList}){
+  const [date, setDate] = useState(new Date());
+  const [mode, setMode] = useState('date');
+  const [show, setShow] = useState(false);
+  // const onChange = (event, selectedDate) => {
+  //   const currentDate = selectedDate || date;
+  //   setShow(Platform.OS === 'ios');
+  //   setDate(currentDate);
+  // };
+
+  const showMode = (currentMode) => {
+    setShow(true);
+    setMode(currentMode);
+  };
+
+  const showDatepicker = () => {
+    showMode('date');
+  };
+  const getdate = (date) => {
+    let dd = date.getDate().toString()
+    let mm = (date.getMonth() + 1).toString()
+    let year = date.getFullYear().toString()
+    return (`${mm}/${dd}/${year}`)
+  }
   return (
     <View style={styles.container}>
       <Formik
@@ -21,6 +45,21 @@ export default function CreateTaskForm({addTask, courseList}){
       >
         {props => (
           <View>
+            {show && (
+              <DateTimePicker
+                testID="dateTimePicker"
+                value={date}
+                mode={mode}
+                is24Hour={true}
+                display="default"
+                onChange={(event,selectedDate)=>{
+                  const currentDate = selectedDate || date;
+                  setShow(Platform.OS === 'ios');
+                  setDate(currentDate);
+                  props.setFieldValue("due_date",getdate(date))
+                }}
+              />
+            )}
             <Picker
               selectedValue = {props.values.class}
               style={styles.input}
@@ -48,23 +87,28 @@ export default function CreateTaskForm({addTask, courseList}){
             />
             <TextInput 
               style={styles.input}
-              placeholder='Due Date'
+              placeholder="Due Date"
               onChangeText={props.handleChange('due_date')}
               value={props.values.due_date}
-              keyboardType='numbers-and-punctuation'
             />
+            <Button title = "Pick Due Date" color = "navy" onPress = {()=>{
+              // props.setFieldValue("due_date",getdate(date))
+              //setField(props,"due_date",getdate(date))
+              showDatepicker()
+            }}/>
+            
             <Picker
                 selectedValue = {props.values.priority}
                 style={styles.input}
                 mode='dropdown'
                 onValueChange={props.handleChange('priority')}
             >
-                <Picker.Item label = "Priority (Low, Medium or High)" value = {null} color = "grey"/> 
-                <Picker.Item label="Low" value="low" />
-                <Picker.Item label="Medium" value="medium" />
-                <Picker.Item label="High" value="high" />
+              <Picker.Item label = "Priority (Low, Medium or High)" value = {null} color = "grey"/> 
+              <Picker.Item label="Low" value="low" />
+              <Picker.Item label="Medium" value="medium" />
+              <Picker.Item label="High" value="high" />
             </Picker>
-            <Button color='maroon' title="Submit" onPress={props.handleSubmit} /> 
+            <Button color='maroon' title="Submit" onPress={props.handleSubmit}/> 
           </View>
         )}
       </Formik>
