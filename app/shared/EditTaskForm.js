@@ -1,9 +1,28 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { StyleSheet, Button, TextInput, View, Text} from 'react-native';;
 import { Formik } from 'formik';
 import {Picker} from '@react-native-picker/picker';
+import DateTimePicker from '@react-native-community/datetimepicker';
 
 export default function EditTaskForm({editTask,prevValues,courseList}){
+  const [date, setDate] = useState(new Date());
+  const [mode, setMode] = useState('date');
+  const [show, setShow] = useState(false);
+
+  const showMode = (currentMode) => {
+    setShow(true);
+    setMode(currentMode);
+  };
+
+  const showDatepicker = () => {
+    showMode('date');
+  };
+  const getdate = (date) => {
+    let dd = date.getDate().toString()
+    let mm = (date.getMonth() + 1).toString()
+    let year = date.getFullYear().toString()
+    return (`${mm}/${dd}/${year}`)
+  }
   return (
     <View style={styles.container}>
       <Formik
@@ -22,6 +41,21 @@ export default function EditTaskForm({editTask,prevValues,courseList}){
       >
         {props => (
           <View>
+            {show && (
+              <DateTimePicker
+                testID="dateTimePicker"
+                value={date}
+                mode={mode}
+                is24Hour={true}
+                display="default"
+                onChange={(event,selectedDate)=>{
+                  const currentDate = selectedDate || date;
+                  setShow(Platform.OS === 'ios');
+                  setDate(currentDate);
+                  props.setFieldValue("due_date",getdate(date))
+                }}
+              />
+            )}
             <Picker
               selectedValue = {props.values.class}
               style={styles.input}
@@ -53,6 +87,9 @@ export default function EditTaskForm({editTask,prevValues,courseList}){
               value={props.values.due_date}
               keyboardType='numbers-and-punctuation'
             />
+            <Button title = "Pick Due Date" color = "navy" onPress = {()=>{
+              showDatepicker()
+            }}/>
             <Text style = {{
                 padding: 10,
                 fontSize: 18,

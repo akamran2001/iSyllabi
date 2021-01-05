@@ -87,8 +87,6 @@ export default function CreateTaskForm({addTask, courseList}){
               value={props.values.due_date}
             />
             <Button title = "Pick Due Date" color = "navy" onPress = {()=>{
-              // props.setFieldValue("due_date",getdate(date))
-              //setField(props,"due_date",getdate(date))
               showDatepicker()
             }}/>
             
