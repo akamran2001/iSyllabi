@@ -3,7 +3,7 @@ import { StyleSheet, Button, TextInput, View, Text} from 'react-native';;
 import { Formik } from 'formik';
 import {Picker} from '@react-native-picker/picker';
 
-export default function EditTaskForm({editTask,prevValues}){
+export default function EditTaskForm({editTask,prevValues,courseList}){
   return (
     <View style={styles.container}>
       <Formik
@@ -22,12 +22,17 @@ export default function EditTaskForm({editTask,prevValues}){
       >
         {props => (
           <View>
-            <TextInput
+            <Picker
+              selectedValue = {props.values.class}
               style={styles.input}
-              placeholder='Class'
-              onChangeText={props.handleChange('class')}
-              value={props.values.class}
-            />
+              mode='dropdown'
+              onValueChange={props.handleChange('class')}
+            >
+              <Picker.Item label = "Select Class" value = {null} color = "grey" />
+              {courseList.map((e)=>{
+                return (<Picker.Item label = {e.course} value = {e.course}/>)
+              })}
+            </Picker>
             <TextInput
               style={styles.input}
               multiline

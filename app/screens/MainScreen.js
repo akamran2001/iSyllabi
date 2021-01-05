@@ -4,6 +4,7 @@ import { StyleSheet, Text, View, SafeAreaView, FlatList, TouchableOpacity, Modal
 import { MaterialIcons } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons'; 
 import mockData from '../db/mockData';
+import mockClass from "../db/mockClass";
 import CreateTaskForm from '../shared/CreateTaskForm'
 import EditTaskForm from '../shared/EditTaskForm'
 
@@ -27,7 +28,7 @@ function MainScreen (props){
   }
   const editTask = (task) => {
     setTasks((currentTasks)=>{
-      for (i=0; i<currentTasks.length;i++){
+      for (let i=0; i<currentTasks.length;i++){
         if(currentTasks[i].key === task.key){
           currentTasks[i] = task
         }
@@ -49,8 +50,11 @@ function MainScreen (props){
     setEditOpen(true)
   }
   ///*** End Mock Database setup ***///
+  const [course, setCourse] = useState(mockClass)
+
   return(
   <SafeAreaView style={styles.container}>
+    {/* Modal for creating a new task*/}
     <Modal visible={modalOpen} animationType='slide'>
       <View style={styles.modalContent}>
         <MaterialIcons 
@@ -59,7 +63,7 @@ function MainScreen (props){
           style={{...styles.modalToggle, ...styles.modalClose}} 
           onPress={() => setModalOpen(false)} 
         />
-        <CreateTaskForm addTask = {addTask}/>
+        <CreateTaskForm addTask = {addTask} courseList = {course}/>
       </View>
     </Modal>
     <Ionicons 
@@ -69,6 +73,7 @@ function MainScreen (props){
       color = "black"
       onPress={() => setModalOpen(true)} 
     />
+    {/* Modal for Editing Tasks*/}
     <Modal visible={editOpen} animationType='slide'>
       <View style={styles.modalContent}>
         <MaterialIcons 
@@ -77,7 +82,7 @@ function MainScreen (props){
           style={{...styles.modalToggle, ...styles.modalClose}} 
           onPress={() => setEditOpen(false)} 
         />
-        <EditTaskForm editTask = {editTask} prevValues = {prevValues}/>
+        <EditTaskForm editTask = {editTask} prevValues = {prevValues} courseList = {course}/>
       </View>
     </Modal>
     <FlatList data = {task} renderItem = {({item})=>
