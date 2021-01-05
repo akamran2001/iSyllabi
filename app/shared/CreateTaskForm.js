@@ -47,12 +47,6 @@ export default function CreateTaskForm({addTask}){
               value={props.values.due_date}
               keyboardType='numbers-and-punctuation'
             />
-            {/* <Text style = {{
-                padding: 10,
-                fontSize: 18,
-                color: 'gray',
-                paddingLeft: 0,
-            }}> Priority </Text> */}
             <Picker
                 selectedValue = {props.values.priority}
                 style={styles.input}
